@@ -1,0 +1,1283 @@
+/*
+To customize the look and feel of Ionic, you can override the variables
+in ionic's _variables.scss file.
+
+For example, you might change some of the default colors:
+
+$light:                           #fff !default;
+$stable:                          #f8f8f8 !default;
+$positive:                        #387ef5 !default;
+$calm:                            #11c1f3 !default;
+$balanced:                        #33cd5f !default;
+$energized:                       #ffc900 !default;
+$assertive:                       #ef473a !default;
+$royal:                           #886aea !default;
+$dark:                            #444 !default;
+*/
+
+// The path for our ionicons font files, relative to the built CSS in www/css
+$ionicons-font-path: "../lib/ionic/fonts" !default;
+
+// my css begin
+$positive:#81C784 !default;
+$balanced:#4CAF50 !default;
+
+.modal{
+  width: 100% !important;
+  height: 100% !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+}
+.popup{
+  max-height: 80% !important;
+}
+.popover{
+  margin-top: 0px !important;
+  height: auto !important;
+  &>.list{
+    margin: 0 0;
+  }
+}
+.colorPickerPopupCheck:before{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: #FFF;
+}
+.occupy:after{
+  content:'';
+  display: block;
+  clear: both;
+}
+.popup{
+  width: 270px !important;
+  input[type=email]{
+    padding: 5px 10px;
+  }
+}
+.spinner svg {
+  width: 28px;
+  height: 28px;
+  stroke: #FFF;
+  fill: #FFF;
+}
+.hide{
+  display: none !important;
+}
+.bgPrimary{
+  background-color: $balanced !important;
+}
+.colorPicker{
+  label{
+    width: 56px;
+    height: 56px;
+    display: inline-block;
+    margin: 0px 3px !important;
+    border: none;
+    .colorPickerContent{
+      height: 100%;
+    }
+  }
+}
+div.btnLogin {
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+  button.btnLoginWidth {
+    width: 100%;
+  }
+  a{
+    color: #FFF;
+    width: 100%;
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    text-decoration: none;
+  }
+}
+
+div.logoContainer{
+  p{
+    color: #FFF;
+    width: 100%;
+    min-height: 20px;
+    display: block;
+    text-align: center;
+  }
+  img.logo{
+    display: block;
+    margin:0 auto;
+  }
+  .loginFrm{
+    margin: 0px 10px 20px !important;
+  }
+}
+
+.settings{
+  .error{
+    color: red;
+  }
+  h1{
+    color: $balanced;
+    width: 100%;
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 50px !important;
+    margin-bottom: 30px !important;
+  }
+  p{
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 50px;
+    min-height: 40px;
+  }
+  #firstName{
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-right-width: 1px;
+  }
+  #lastName{
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-left-width: 1px;
+  }
+  div.ctnBtn{
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    button{
+      border-color: $positive !important;
+      color: $positive !important;
+      width: 100%;
+    }
+    button.activated{
+      background-color: $balanced !important;
+      border-color: $positive !important;
+      color: $positive !important;
+      width: 100%;
+    }
+  }
+  a{
+    color: $balanced;
+    width: 100%;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 40px;
+    margin-bottom: 10px;
+  }
+  p.reminder{
+    min-height: 0px;
+    display: block;
+    text-align: center;
+    margin: 10px 10px 10px 10px;
+    a{
+      display: inline;
+      color: $balanced;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      text-decoration: none;
+    }
+  }
+  .reg-row{
+    padding:0px 0px !important;
+    .reg-col{
+      padding:0px 0px !important;
+    }
+  }
+}
+#appNav{
+  .item{
+    border-style: none !important;
+    h2{
+      font-size: 14px;
+    }
+    i.app-icon:before{
+      font-size: 16px !important;
+    }
+  }
+  .active i.app-icon:before,.active h2{
+    color: $balanced;
+  }
+  #navList>.list{
+    display:block;
+    border: #ddd 1px solid;
+    border-top-style: none !important;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    #navHeader{
+      height: 187px;
+      padding: 0px 0px 8px 0px;
+      margin-bottom: 8px;
+      background-color: $balanced;
+      border-top-style: none !important;
+      border-right-style: none !important;
+      border-left-style: none !important;
+      div{
+        width: 100%;
+        span.cover{
+          width: 100%;
+          height: 187px;
+          overflow: hidden;
+          background-size: cover !important;
+          background: no-repeat center;
+          display: block;
+        }
+        div{
+          padding-left: 16px;
+          padding-bottom: 8px;
+          position: absolute;
+          bottom: 0;
+          span.picture{
+            width: 80px;
+            height: 80px;
+            border-radius: 50px;
+            overflow: hidden;
+            background-size: cover !important;
+            background-repeat: no-repeat;
+            display: block;
+          }
+          p#name{
+            color: #fff;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 10px;
+          }
+          p#position{
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+    }
+  }
+
+  #settingsList>.list{
+    display:block;
+    #settingsHeader{
+      h3{
+        color: #b6b6b6;
+      }
+    }
+  }
+}
+
+#accountSettings{
+  div#header{
+    position: relative;
+    min-height: 225px;
+    span.cover{
+      width: 100%;
+      height: 225px;
+      display: block;
+      background-color: $balanced;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+      position: absolute;
+    }
+    span.picture{
+      width: 100px;
+      height: 100px;
+      display: block;
+      overflow: hidden;
+      background-size: cover !important;
+      background-repeat: no-repeat;
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      border-radius: 50px
+    }
+  }
+  button.no-margin{
+    margin: 0px 0px 0px 0px !important;
+  }
+  i.invalid-icon:before{
+    font-size: 14px;
+    color: #ff0000;
+    position: absolute;
+    bottom: 16px;
+    right: 0;
+  }
+  i.saved-icon:before{
+    color: $balanced;
+  }
+}
+
+#connections{
+  .tabs-balanced > .tabs, .tabs.tabs-balanced{
+    position: absolute;
+    border-top: 0px solid transparent !important;
+    padding-top: 0px !important;
+    top: 42px;
+    .badge{
+      opacity: 1 !important;
+    }
+  }
+  .slider {
+    height: 100%;
+    top: 96px !important;
+    .slider-slide {
+      .scroll-view{
+        height: 100%;
+        .spinner{
+          display: block;
+          position: relative;
+          width: 100%;
+          svg {
+            position: absolute;
+            width: 100%;
+            height: 28px;
+            top: 50px;
+            stroke: $balanced;
+            fill: $balanced;
+          }
+        }
+        .list {
+          button{
+            top: 14px;
+            &.activated:before{
+              color: $balanced;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+#profileModal{
+  div#header{
+    position: relative;
+    min-height: 225px;
+    span.cover{
+      width: 100%;
+      height: 225px;
+      display: block;
+      background-color: $balanced;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+      position: absolute;
+    }
+    span.picture{
+      width: 100px;
+      height: 100px;
+      display: block;
+      overflow: hidden;
+      background-size: cover !important;
+      background-repeat: no-repeat;
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      border-radius: 50px
+    }
+    h2{
+      position: absolute;
+      bottom: 6px;
+      left: 125px;
+      color: #fff;
+      display: block;
+      max-height: 235px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      will-change: text-wrap;
+    }
+    #closeProfile{
+      position: absolute;
+      right: 10px;
+      &:before{
+        font-size: 20px;
+        color: #FFF;
+      }
+    }
+  }
+  .row{
+    border-bottom: 1px solid #EEE;
+    span{
+      display: block;
+      text-align: center;
+      font-size: 10px;
+      color: #666;
+      font-weight: bold;
+    }
+    span.active{
+      color: $balanced !important;
+    }
+    i:before{
+      color: #666;
+      font-size: 25px;
+      text-align: center;
+      display: block;;
+      font-weight: bold;
+    }
+    i.active:before{
+      color: $balanced !important;
+    }
+  }
+  .list{
+    .item-divider{
+      font-weight: bold !important;
+    }
+  }
+}
+#messages{
+  .spinner{
+    display: block;
+    position: relative;
+    width: 100%;
+    svg {
+      position: absolute;
+      width: 100%;
+      height: 28px;
+      top: 50px;
+      stroke: $balanced;
+      fill: $balanced;
+    }
+  }
+  a.unseen{
+    background-color: #EEE;
+  }
+  h2{
+    padding: 0 0;
+    margin: 0 0 !important;
+    &.bold{
+      font-weight: bold;
+    }
+  }
+  .online{
+    width: 12px;
+    height: 12px;
+    background-color: green;
+    display: block;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 16px;
+    left: 44px;
+    border: 2px solid #FFF;
+  }
+  p.date{
+    position: absolute;
+    top: 16px;
+    right: 16px;
+  }
+}
+
+#messagesModal{
+  .has-footer{
+    bottom: 67px !important;
+  }
+  .bar{
+    &.bar-footer{
+      height: 67px;
+    }
+    #closeMessage{
+      &:before{
+        font-size: 20px;
+        color: #FFF;
+      }
+    }
+    textarea{
+      width: 100%;
+      height: 100%;
+      resize: none;
+    }
+    &.bar-footer{
+      border-top: 1px solid #EEE;
+      .icon:before{
+        font-size: 30px;
+        line-height: 42px;
+        color: $balanced;
+      }
+    }
+  }
+  .row{
+    height: 100%;
+    .col{
+      position: relative;
+      p{
+        text-align: center;
+        color: #AAA;
+      }
+      img{
+        position: absolute;
+        max-width: 40px;
+        max-height: 40px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        &.right{
+          right: 8px;
+        }
+        &.left{
+          left: 8px;
+        }
+      }
+      label{
+        max-width: 80%;
+        &.fright{
+          float: right;
+          span.message{
+            display: block;
+            border-radius: 7px;
+            padding: 10px 10px;
+            position: relative;
+            background-color: #81C784;
+            right: 55px;
+            color: white;
+            &.new-sender:before{
+              content: "\00a0";
+              display: block;
+              height: 16px;
+              width: 9px;
+              position: absolute;
+              top: 7.5px;
+              background-color: #81C784;
+              right: -5px;
+              -webkit-transform: rotate(25deg) skew(-5deg);
+            }
+          }
+          span.time{
+            display:block;
+            position: relative;
+            right: 60px;
+            font-size: 11px;
+            color: #AAA;
+            margin: 3px 3px;
+            text-align: right;
+          }
+        }
+        &.fleft{
+          float: left;
+          span.message{
+            display: block;
+            border-radius: 7px;
+            padding: 10px 10px;
+            position: relative;
+            background-color: #e6e5eb;
+            left: 55px;
+            &.new-sender:before{
+              content: "\00a0";
+              display: block;
+              height: 16px;
+              width: 9px;
+              position: absolute;
+              top: 7.5px;
+              background-color: #e6e5eb;
+              left: -5px;
+              -webkit-transform: rotate(-25deg) skew(5deg);
+            }
+          }
+          span.time{
+            display:block;
+            position: relative;
+            left: 60px;
+            font-size: 11px;
+            color: #AAA;
+            margin: 3px 3px;
+            text-align: left;
+          }
+        }
+      }
+      .online{
+        width: 12px;
+        height: 12px;
+        max-width: 12px;
+        max-height: 12px;
+        padding: 0 0;
+        background-color: green;
+        display: block;
+        border-radius: 50%;
+        position: absolute;
+        bottom: 23px;
+        left: 36px;
+        border: 2px solid #FFF;
+      }
+    }
+  }
+}
+
+#projects{
+  #addProject{
+    background-color: $balanced !important;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    .icon:before{
+      font-size: 24px;
+      color: #FFF;
+    }
+  }
+  #projectListing{
+    label{
+      span{
+        display: block;
+        position: absolute;
+        top: 10px;
+        color: white;
+        font-weight: bold;
+        font-size: 16px;
+        margin: 0 auto;
+        width: 100%;
+        text-align: center;
+      }
+    }
+    p{
+      overflow: initial;
+      text-overflow: initial;
+      white-space: initial;
+      &.overbudget{
+        color: red;
+      }
+    }
+  }
+  .spinner{
+    display: block;
+    position: relative;
+    width: 100%;
+    svg {
+      position: absolute;
+      width: 100%;
+      height: 28px;
+      top: 50px;
+      stroke: $balanced;
+      fill: $balanced;
+    }
+  }
+  a.not-seen{
+    background-color: #EFEFEF;
+    h2{
+      font-weight: bold;
+    }
+  }
+}
+#newProjectModal{
+  #closeMessage{
+    &:before{
+      font-size: 20px;
+      color: #FFF;
+    }
+  }
+  button.datepickerBtn{
+    text-align: left;
+    font-size: 14px;
+    background-color: transparent;
+    border: none;
+    padding: 0 0;
+    height: 34px;
+  }
+  button#colorPicker{
+    display: block;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 20px auto;
+    border: none;
+  }
+  .invalid-icon{
+    position: absolute;
+    right: 16px;
+    bottom: 11px;
+    color: red;
+  }
+}
+
+#editProjectModal{
+  .menuButton:before{
+    font-size: 20px;
+    color: #FFF;
+    margin-right: 5px;
+  }
+  button.datepickerBtn{
+    text-align: left;
+    font-size: 14px;
+    background-color: transparent;
+    border: none;
+    padding: 0 0;
+    height: 34px;
+  }
+  button#colorPicker {
+    display: block;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 20px auto;
+    border: none;
+  }
+  .invalid-icon{
+    position: absolute;
+    right: 16px;
+    bottom: 11px;
+    color: red;
+  }
+}
+
+#passOwnershipModal{
+  .spinner{
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 120px;
+    svg {
+      position: absolute;
+      width: 100%;
+      height: 28px;
+      top: 50px;
+      stroke: $balanced;
+      fill: $balanced;
+    }
+  }
+  .menuButton{
+    color: #FFF;
+    &:before{
+      font-size: 20px;
+      margin-right: 5px;
+    }
+  }
+  div.members.list{
+    padding-bottom: 96px;
+    a{
+      h2, p{
+        width: 80%;
+      }
+      button{
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        &:before{
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}
+
+#projectDetails{
+  .overbudget{
+    color: red;
+  }
+  .bar.bar-header{
+    height: 88px;
+    border: none;
+    position: relative;
+    .title{
+      font-size: 30px;
+      top: 44px;
+      left: 15px;
+      color: #FFF;
+    }
+    #closeMessage{
+      &:before{
+        font-size: 20px;
+        color: #FFF;
+      }
+    }
+    .menuButton{
+      &:before{
+        font-size: 20px;
+        color: #FFF;
+      }
+    }
+  }
+  .tabs-balanced > .tabs, .tabs.tabs-balanced{
+    border-top: 0px solid transparent !important;
+    padding-top: 0px !important;
+    top: 44px;
+  }
+  .slider {
+    height: 100%;
+    .slider-slide {
+      .has-header{
+        top: 0;
+      }
+      .spinner{
+        display: block;
+        position: relative;
+        width: 100%;
+        height: 120px;
+        svg {
+          position: absolute;
+          width: 100%;
+          height: 28px;
+          top: 50px;
+          stroke: $balanced;
+          fill: $balanced;
+        }
+      }
+    }
+  }
+}
+#projectMembers{
+  #addMembers{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    .icon:before{
+      font-size: 20px;
+      color: #FFF;
+    }
+  }
+  div.members.list{
+    padding-bottom: 96px;
+    a{
+      h2, p{
+        width: 80%;
+      }
+      button{
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        &:before{
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}
+#projectMilestones{
+  .list{
+    label{
+      span{
+        display: block;
+        position: absolute;
+        top: 10px;
+        color: white;
+        font-weight: bold;
+        font-size: 16px;
+        margin: 0 auto;
+        width: 100%;
+        text-align: center;
+      }
+    }
+    a.not-seen{
+      background-color: #EFEFEF;
+      h2{
+        font-weight: bold;
+      }
+    }
+  }
+  #addMilestone{
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    .icon:before{
+      font-size: 20px;
+      color: #FFF;
+    }
+  }
+}
+#milestoneDetails{
+  .spinner{
+    display: block !important;
+    position: relative;
+    width: 100%;
+    height: 100px;
+    svg {
+      position: absolute;
+      width: 100%;
+      height: 28px;
+      top: 50px;
+      stroke: $balanced;
+      fill: $balanced;
+    }
+  }
+  .bar.bar-header{
+    margin: 0 0;
+    border: none;
+    .menuButton{
+      color: #FFF;
+      &:before{
+        font-size: 20px;
+        color: #FFF;
+        margin-right: 5px;
+      }
+    }
+    h1{
+      color: #FFF;
+    }
+  }
+  .tabs{
+    top: 40px;
+    border: none;
+    padding: 0 0;
+    .tab-item{
+      color: #FFF;
+    }
+    .tab-item-active{
+      border-bottom: 3px solid #FFF;
+    }
+  }
+  .slider{
+    top: 101px;
+    button.add{
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      .icon:before{
+        font-size: 20px;
+        color: #FFF;
+      }
+    }
+    #milestoneTasks{
+      .has-header{
+        top: 0;
+      }
+      .list{
+        padding-bottom: 96px;
+        i.icon.ion-android-more-vertical{
+          color: #AAA;
+          &:before{
+            font-size: 20px;
+          }
+        }
+      }
+    }
+    #milestoneDiscussions{
+      .list{
+        padding-bottom: 96px;
+        .item.item-body p{
+          margin: 0 0;
+          &.commentCtr{
+            margin-top: 16px;
+          }
+        }
+        .item.item-body.activated{
+          margin: 0 0;
+          background-color: #FFF;
+        }
+      }
+      .has-header{
+        top: 0;
+      }
+      .button{
+        &:before{
+          font-size: 20px;
+        }
+      }
+    }
+    #milestoneLogs{
+      .list{
+        .item.item-avatar{
+          p {
+            overflow: initial;
+            text-overflow: initial;
+            white-space: initial;
+            .name{
+              font-weight: bold;
+            }
+            .post{
+              font-weight: bold;
+            }
+          }
+        }
+        .item.item-body p{
+          margin: 0 0;
+        }
+      }
+      .has-header{
+        top: 0;
+      }
+    }
+  }
+}
+#addMilestoneModal{
+  .menuButton{
+    color: #FFF;
+    &:before{
+      font-size: 20px;
+      color: #FFF;
+      margin-right: 5px;
+    }
+  }
+  button.datepickerBtn{
+    text-align: left;
+    font-size: 14px;
+    background-color: transparent;
+    border: none;
+    padding: 0 0;
+    height: 34px;
+  }
+  button#colorPicker {
+    display: block;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 20px auto;
+    border: none;
+  }
+  .invalid-icon{
+    position: absolute;
+    right: 16px;
+    bottom: 11px;
+    color: red;
+  }
+}
+#addPost{
+  .bar{
+    .menuButton{
+      color: #FFF;
+      &:before{
+        font-size: 20px;
+        color: #FFF;
+        margin-right: 5px;
+      }
+    }
+    h1{
+      color: #FFF;
+    }
+  }
+  .list{
+    input{
+      width: 100%;
+      border-bottom: 1px solid #DDD;
+    }
+    textarea{
+      width: 100%;
+      height: 90%;
+      margin: 10px 0px;
+      resize: none;
+    }
+  }
+}
+#postDetails{
+  .bar{
+    .menuButton{
+      color: #FFF;
+      &:before{
+        font-size: 20px;
+        color: #FFF;
+        margin-right: 5px;
+      }
+    }
+    h1{
+      color: #FFF;
+    }
+  }
+  textarea{
+    width: 100%;
+    resize: none;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    padding-right: 0px;
+    line-height: inherit;
+    letter-spacing: -0.35px;
+  }
+  p{
+    margin: 0 0;
+    &.post{
+      letter-spacing: -0.2px;
+    }
+  }
+  .bar{
+    &.bar-footer{
+      height: 67px;
+      background-color: #FFF;
+      border-top: 1px solid #DDD;
+      position: absolute;
+      .icon:before{
+        font-size: 30px;
+        line-height: 42px;
+        color: #333;
+      }
+    }
+  }
+  #postComments{
+    p{
+      overflow: initial;
+      text-overflow: initial;
+      white-space: normal;
+      &.date{
+        margin-bottom: 8px;
+      }
+    }
+    .item-icon-right .icon{
+      top: 16px;
+      height: auto;
+      font-size: 18px;
+    }
+  }
+}
+#postNotExists{
+  .bar{
+    .menuButton{
+      color: #FFF;
+      &:before{
+        font-size: 20px;
+        color: #FFF;
+        margin-right: 5px;
+      }
+    }
+    h1{
+      color: #FFF;
+    }
+  }
+  .scroll-content{
+    display: table;
+    .scroll {
+      display: table-cell;
+      vertical-align: middle;
+      h1{
+        text-align: center;
+        display: block;
+        font-weight: bold;
+        font-size: 60px;
+        color: #DDD;
+      }
+    }
+  }
+}
+#projectTimeLogs{
+  #addTimeLog{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    .icon:before{
+      font-size: 20px;
+      color: #FFF;
+    }
+  }
+  div.timeLogs.list{
+    padding-bottom: 96px;
+    div{
+      p{
+        &.date{
+          margin-bottom: 8px;
+        }
+        overflow: initial;
+        text-overflow: initial;
+        white-space: normal;
+      }
+      .button-icon.icon:before{
+        top: 16px;
+        height: auto;
+        font-size: 18px;
+      }
+    }
+  }
+}
+#projectLogs{
+  div.projectLogs.list{
+    div{
+      p{
+        overflow: initial;
+        text-overflow: initial;
+        white-space: normal;
+        a.name{
+          font-weight: bold;
+        }
+      }
+      .button-icon.icon:before{
+        top: 16px;
+        height: auto;
+        font-size: 18px;
+      }
+    }
+  }
+}
+#projectGraph{
+  .graph-wrapper{
+    display: table;
+    width: 100%;
+    .graph-container{
+      display: table-cell;
+      vertical-align: middle;
+      #doughnut{
+        display: block;
+        margin: 0 auto;
+      }
+      #percentage{
+        position: absolute;
+        top: 48%;
+        left: 0;
+        right: 0;
+        display: block;
+        width: 100%;
+        text-align: center;
+        font-size: 50px;
+        font-weight: bold;
+        &.error{
+          color: red;
+        }
+      }
+    }
+  }
+}
+#about{
+  .title{
+    font-weight: bold;
+  }
+}
+#terms{
+  li{
+    margin: 10px 10px;
+  }
+  h1{
+    text-align: center;
+    color: $balanced;
+    font-weight: normal;
+  }
+  h2{
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+#privacy{
+  li{
+    margin: 10px 10px;
+  }
+  h1{
+    text-align: center;
+    color: $balanced;
+    font-weight: normal;
+  }
+  h2{
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+.registerModals{
+  .button-icon.icon:before{
+    font-size: 16px;
+  }
+}
+// my css end
+
+// Include all of Ionic
+@import "www/lib/ionic/scss/ionic";
+
+//over riding ionic's css start
+.bar {
+  background-size: 100% 0px;
+}
+.bar.bar-balanced{
+  border: 0px !important;
+  border-bottom-color: transparent !important;
+  background-image: none;
+  border-bottom: none;
+}
+//over riding ionic's css end

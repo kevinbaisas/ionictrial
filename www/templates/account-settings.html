@@ -1,0 +1,109 @@
+<div id="accountSettings" ng-controller="Account">
+    <ion-content>
+        <div id="header">
+            <span class="cover" ng-if="pictures.cover != ''"  ng-click="changePicture('cover')" ng-style="{'background-image' : 'url('+pictures.cover+')'}"></span>
+            <span class="cover" ng-if="pictures.cover == ''"  ng-click="changePicture('cover')" ng-style="{'background-image' : 'url(./img/def-cover.png)'}"></span>
+            <span class="picture" ng-if="pictures.picture != ''" ng-click="changePicture('profile')" ng-style="{'background-image' : 'url('+pictures.picture+')'}"></span>
+            <span class="picture" ng-if="pictures.picture == ''" ng-click="changePicture('profile')" ng-style="{'background-image' : 'url(./img/def-profile.png)'}"></span>
+        </div>
+        <div class="list card">
+            <form name="profileFrm">
+                <div class="item item-divider item-icon-right">
+                    <i ng-show="profileCheck" class="saved-icon icon ion-checkmark-circled"></i>
+                    Profile
+                </div>
+                <label class="item item-input item-stacked-label item-icon-right">
+                    <i class="invalid-icon icon ion-close" ng-class="{'hide' : profile.firstName != ''}"></i>
+                    <span class="input-label">First Name</span>
+                    <input type="text" placeholder="Required" ng-model="profile.firstName" required>
+                </label>
+                <label class="item item-input item-stacked-label item-icon-right">
+                    <i class="invalid-icon icon ion-close" ng-class="{'hide' : profile.lastName != ''}"></i>
+                    <span class="input-label">Last Name</span>
+                    <input type="text" placeholder="Required" ng-model="profile.lastName" required>
+                </label>
+                <label class="item item-input item-stacked-label item-icon-right">
+                    <i class="invalid-icon icon ion-close" ng-class="{'hide' : profile.company != ''}"></i>
+                    <span class="input-label">Company</span>
+                    <input type="text" placeholder="Required" ng-model="profile.company" required>
+                </label>
+                <label class="item item-input item-stacked-label item-icon-right">
+                    <i class="invalid-icon icon ion-close"  ng-class="{'hide' : profile.position != ''}"></i>
+                    <span class="input-label">Position</span>
+                    <input type="text" placeholder="Required" ng-model="profile.position" required>
+                </label>
+                <label class="item item-input item-stacked-label item-icon-right">
+                    <span class="input-label">Contact (Optional)</span>
+                    <input type="text" placeholder="" ng-model="profile.contact">
+                </label>
+                <div class="padding">
+                    <button class="button button-block no-margin button-balanced"
+                            ng-disabled="profileFrm.$invalid"
+                            ng-click="saveProfile()">Save</button>
+                </div>
+            </form>
+        </div>
+        <div class="list card">
+            <div class="item item-divider item-icon-right">
+                <i ng-show="privacyCheck" class="saved-icon icon ion-checkmark-circled"></i>
+                Privacy
+            </div>
+            <ion-toggle toggle-class="toggle-balanced" ng-model="profile.contactPrivate">Hide Contact</ion-toggle>
+            <ion-toggle toggle-class="toggle-balanced" ng-model="profile.emailPrivate">Hide Email</ion-toggle>
+            <ion-toggle toggle-class="toggle-balanced" ng-model="profile.companyPrivate">Hide Company</ion-toggle>
+            <ion-toggle toggle-class="toggle-balanced" ng-model="profile.positionPrivate">Hide Position</ion-toggle>
+            <ion-toggle toggle-class="toggle-balanced" ng-model="profile.isSearchable">Hide from Search</ion-toggle>
+            <div class="padding">
+                <button class="button button-block no-margin button-balanced" ng-click="savePrivacy()">Save</button>
+            </div>
+        </div>
+        <div class="list card">
+            <div class="item item-divider item-icon-right">
+                <i ng-show="emailCheck" class="saved-icon icon ion-checkmark-circled"></i>
+                Change Email
+            </div>
+            <label class="item item-input item-stacked-label item-icon-right">
+                <i  ng-show="ceOldEmailCheck" class="invalid-icon icon ion-close"></i>
+                <span class="input-label">Old Email</span>
+                <input type="text" placeholder="Old Email Address" ng-model="ce.ceOldEmail">
+            </label>
+            <label class="item item-input item-stacked-label item-icon-right">
+                <i  ng-show="ceNewEmailCheck" class="invalid-icon icon ion-close"></i>
+                <span class="input-label">New Email</span>
+                <input type="text" placeholder="New Email Address" ng-model="ce.ceNewEmail">
+            </label>
+            <label class="item item-input item-stacked-label item-icon-right">
+                <i  ng-show="cePasswordCheck" class="invalid-icon icon ion-close"></i>
+                <span class="input-label">Password</span>
+                <input type="password" placeholder="Password" ng-model="ce.cePassword">
+            </label>
+            <div class="padding">
+                <button class="button button-block no-margin button-balanced" ng-click="changeEmail()">Save</button>
+            </div>
+        </div>
+        <div class="list card">
+            <div class="item item-divider item-icon-right">
+                <i ng-show="passwordCheck" class="saved-icon icon ion-checkmark-circled"></i>
+                Change Password
+            </div>
+            <label class="item item-input item-stacked-label item-icon-right">
+                <i ng-show="cpEmailCheck" class="invalid-icon icon ion-close"></i>
+                <span class="input-label">Email</span>
+                <input type="text" placeholder="Email Address" ng-model="cp.cpEmail">
+            </label>
+            <label class="item item-input item-stacked-label item-icon-right">
+                <i ng-show="cpOldPasswordCheck" class="invalid-icon icon ion-close"></i>
+                <span class="input-label">Old Password</span>
+                <input type="password" placeholder="Old Password" ng-model="cp.cpOldPassword">
+            </label>
+            <label class="item item-input item-stacked-label item-icon-right">
+                <i ng-show="cpNewPasswordCheck" class="invalid-icon icon ion-close"></i>
+                <span class="input-label">New Password</span>
+                <input type="password" placeholder="New Password" ng-model="cp.cpNewPassword">
+            </label>
+            <div class="padding">
+                <button class="button button-block no-margin button-balanced" ng-click="changePassword()">Save</button>
+            </div>
+        </div>
+    </ion-content>
+</div>

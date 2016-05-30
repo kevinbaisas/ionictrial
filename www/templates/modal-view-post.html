@@ -1,0 +1,43 @@
+<ion-modal-view>
+    <div id="postDetails">
+        <ion-header-bar class="bar bar-header" ng-style="{'background-color' : milestoneDetails.colorLabel}">
+            <button id="closeMessage" class="menuButton button button-clear button-icon icon ion-chevron-left" ng-click="closeModal(7)"></button>
+            <h1 class="title">View Post</h1>
+        </ion-header-bar>
+        <ion-content ng-style="{'height' : (deviceHeight + 24) + 'px'}">
+            <div class="list">
+                <div class="item item-avatar item-icon-right">
+                    <img ng-if="projectInfo.involved_users[milestonePostDetails.user].pictures.picture == ''" src="./img/def-profile.png" ng-click="openProfile(milestonePostDetails.user)">
+                    <img ng-if="projectInfo.involved_users[milestonePostDetails.user].pictures.picture != ''" src="{{projectInfo.involved_users[milestonePostDetails.user].pictures.picture}}" ng-click="openProfile(milestonePostDetails.user)">
+                    <h2 class="name" ng-click="openProfile(milestonePostDetails.user)">{{projectInfo.involved_users[milestonePostDetails.user].details.firstName}} {{projectInfo.involved_users[milestonePostDetails.user].details.lastName}}</h2>
+                    <p class="date" ng-if="milestonePostDetails.isEdited != true">{{displayDate(milestonePostDetails.dateCreated)}}</p>
+                    <p class="date" ng-if="milestonePostDetails.isEdited == true">{{displayDate(milestonePostDetails.dateCreated)}} · Edited</p>
+                    <i class="icon ion-android-more-vertical" ng-if="clientUid == milestonePostDetails.user" ng-click="openPostPopover($event, 4)"></i>
+                    <i class="icon ion-android-more-vertical" ng-if="clientUid == projectInfo.details.owner && clientUid != milestonePostDetails.user" ng-click="openPostPopover($event, 3)"></i>
+                </div>
+                <div class="item item-body">
+                    <p class="post">{{milestonePostDetails.title}}</p>
+                </div>
+                <div class="item item-body">
+                    <p class="post">{{milestonePostDetails.description}}</p>
+                </div>
+                <div id="postComments" ng-if="projectInfo.discussion_comments[milestoneDetails.$id][milestonePostDetails.$id].length > 0">
+                    <div class="item item-avatar item-icon-right" ng-repeat="(key, comment) in projectInfo.discussion_comments[milestoneDetails.$id][milestonePostDetails.$id] | orderBy : '-dateCreated'">
+                        <img ng-if="projectInfo.involved_users[comment.poster].pictures.picture == ''" src="./img/def-profile.png" ng-click="openProfile(comment.poster)">
+                        <img ng-if="projectInfo.involved_users[comment.poster].pictures.picture != ''" src="{{projectInfo.involved_users[comment.poster].pictures.picture}}" ng-click="openProfile(comment.poster)">
+                        <h2 class="name" ng-click="openProfile(comment.poster)">{{projectInfo.involved_users[comment.poster].details.firstName}} {{projectInfo.involved_users[comment.poster].details.lastName}}</h2>
+                        <p class="date" ng-if="comment.isEdited != true">{{displayDate(comment.dateCreated)}}</p>
+                        <p class="date" ng-if="comment.isEdited == true">{{displayDate(comment.dateCreated)}} · Edited</p>
+                        <p>{{comment.comment}}</p>
+                        <i class="icon ion-android-more-vertical" ng-if="clientUid == comment.poster" ng-click="openCommentPopover($event, 6, comment)"></i>
+                        <i class="icon ion-android-more-vertical" ng-if="clientUid == projectInfo.details.owner && clientUid != comment.poster" ng-click="openCommentPopover($event, 5, comment)"></i>
+                    </div>
+                </div>
+            </div>
+        </ion-content>
+        <ion-footer-bar class="bar bar-footer bar-clear padding">
+            <textarea placeholder="Add Comment" rows="2" ng-model="postComment.comment"></textarea>
+            <button class="button button-clear button-icon icon ion-android-send" ng-click="addPostComment()"></button>
+        </ion-footer-bar>
+    </div>
+</ion-modal-view>

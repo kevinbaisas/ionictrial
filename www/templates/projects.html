@@ -1,0 +1,25 @@
+<div id="projects" ng-controller="Projects" ng-init="initializeProjects()">
+    <ion-content>
+        <div class="list list-inset">
+            <label class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="text" placeholder="Search" ng-model="pSearch.keyword">
+            </label>
+        </div>
+        <ion-spinner icon="android" ng-show="projectsListSpinner == true"></ion-spinner>
+        <div class="list" id="projectListing">
+            <a ng-repeat="(key, project) in projects | orderBy : 'details.projectName' | filter: projectSearch" ng-class="{'not-seen' : isSeen(project.key) == false}" class="item item-avatar" ng-click="openProject(project, project.key)">
+                <label class="item-image" ng-style="{'background-color':project.details.colorLabel}">
+                    <span>{{getFirstLetter(project.details.projectName)}}</span>
+                </label>
+                <h2>{{getProjectName(project.details.projectName)}}</h2>
+                <p ng-if="isOverBudget(project.key) == true" class="overbudget">Overbudget: {{getRemainingHours(project.key)}}</p>
+                <p ng-if="isOverBudget(project.key) == false">Remaining Hours: {{getRemainingHours(project.key)}}</p>
+                <p>Deadline: {{project.details.endDate | amDateFormat:'MM/DD/YYYY'}}</p>
+            </a>
+        </div>
+    </ion-content>
+    <button id="addProject" class="button button-balanced button-icon" ng-click="createNewProject(uid)">
+        <i class="icon ion-plus"></i>
+    </button>
+</div>

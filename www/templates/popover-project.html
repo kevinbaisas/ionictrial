@@ -1,0 +1,8 @@
+<ion-popover-view>
+    <div class="list">
+        <a class="item" ng-if="uid == projectInfo.details.owner" ng-click="editProject()">Edit Project</a>
+        <a class="item" ng-if="uid == projectInfo.details.owner" ng-click="passOwnership()">Pass Ownership</a>
+        <a class="item" ng-click="leaveProject()">Leave Project</a>
+        <a class="item" ng-if="uid == projectInfo.details.owner" ng-click="deleteProject()">Delete Project</a>
+    </div>
+</ion-popover-view>

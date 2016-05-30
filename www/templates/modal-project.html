@@ -1,0 +1,37 @@
+<ion-modal-view id="newProjectModal">
+    <ion-header-bar class="bar bar-header bar-balanced">
+        <button id="closeMessage" class="button button-clear button-icon icon ion-chevron-left" ng-click="closeModal(1)"></button>
+        <h1 class="title">New Project</h1>
+    </ion-header-bar>
+    <ion-content>
+        <button id="colorPicker" ng-style="{'background-color':projectDetails.colorLabel}" ng-click="openColorPicker()"></button>
+        <div class="list">
+            <label class="item item-input item-stacked-label">
+                <i class="invalid-icon icon ion-close" ng-class="{'hide' : projectNameChecker == false}"></i>
+                <span class="input-label">Project Name</span>
+                <input type="text" ng-model="projectDetails.projectName" placeholder="Required">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <i class="invalid-icon icon ion-close" ng-class="{'hide' : allottedHoursChecker == false}"></i>
+                <span class="input-label">Allotted Hours</span>
+                <input type="number" ng-model="projectDetails.allottedHours" placeholder="Required">
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Start Date</span>
+                <ionic-datepicker idate="projectDetails.startDate">
+                    <button class="button-full datepickerBtn">{{projectDetails.startDate | date:'MMMM dd, yyyy'}}</button>
+                </ionic-datepicker>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <i class="invalid-icon icon ion-close" ng-class="{'hide' : endDateChecker == false}"></i>
+                <span class="input-label">End Date</span>
+                <ionic-datepicker idate="projectDetails.endDate">
+                    <button class="button-full datepickerBtn">{{projectDetails.endDate | date:'MMMM dd, yyyy'}}</button>
+                </ionic-datepicker>
+            </label>
+        </div>
+        <div class="padding">
+            <button class="button button-full button-balanced" ng-click="createProject(uid, data.firstName + ' ' + data.lastName)">Create</button>
+        </div>
+    </ion-content>
+</ion-modal-view>

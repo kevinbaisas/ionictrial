@@ -1,0 +1,162 @@
+<ion-modal-view id="projectDetails">
+    <ion-header-bar class="bar bar-header" ng-style="{'background-color': projectInfo.details.colorLabel, 'color':'#FFF'}">
+        <button class="menuButton button button-clear button-icon icon ion-chevron-left" ng-click="closeModal(2)"></button>
+        <h1 class="title">{{getProjectName(projectInfo.details.projectName)}}</h1>
+        <button class="menuButton button button-clear button-icon icon ion-android-more-vertical" ng-click="openProjectPopover($event, 8)"></button>
+    </ion-header-bar>
+    <tab-slide-box tab="{{tabIndex}}">
+        <div class="tsb-icons" ng-style="{'background-color': projectInfo.details.colorLabel}">
+            <div class="tsb-ic-wrp">
+                <ion-scroll direction="x" class="tsb-hscroll">
+                    <a href="javascript:;">Details</a>
+                    <a href="javascript:;">Milestones</a>
+                    <a href="javascript:;">Members</a>
+                    <a href="javascript:;">Time Logs</a>
+                    <a href="javascript:;">Graph</a>
+                    <a href="javascript:;">Project Logs</a>
+                </ion-scroll>
+            </div>
+        </div>
+        <ion-slide-box show-pager="false" on-slide-changed="slideHasChanged($index)">
+            <ion-slide ng-style="{'height' : deviceHeight + 'px'}">
+                <ion-content>
+                    <!-- details -->
+                    <div class="list">
+                        <div class="item item-text-wrap">
+                            <h3>Owner</h3>
+                            <span>{{projectInfo.owner.firstName}} {{projectInfo.owner.lastName}}</span>
+                        </div>
+                        <div class="item item-text-wrap">
+                            <h3>Allotted Hours</h3>
+                            <span>{{getAllottedHours(projectInfo.details.allottedHours)}}</span>
+                        </div>
+                        <div class="item item-text-wrap" ng-if="isOverBudget(currentProjectKey) == true">
+                            <h3>Overbudget</h3>
+                            <span class="overbudget">{{getRemainingHours(currentProjectKey)}}</span>
+                        </div>
+                        <div class="item item-text-wrap" ng-if="isOverBudget(currentProjectKey) == false">
+                            <h3>Remaining Hours</h3>
+                            <span>{{getRemainingHours(currentProjectKey)}}</span>
+                        </div>
+                        <div class="item item-text-wrap">
+                            <h3>Start Date</h3>
+                            <span>{{projectInfo.details.startDate | amDateFormat:'MM/DD/YYYY'}}</span>
+                        </div>
+                        <div class="item item-text-wrap">
+                            <h3>End Date</h3>
+                            <span>{{projectInfo.details.endDate | amDateFormat:'MM/DD/YYYY'}}</span>
+                        </div>
+                        <div class="item item-text-wrap">
+                            <h3>Status</h3>
+                            <span ng-if="projectInfo.details.isFinished == false">Ongoing</span>
+                            <span ng-if="projectInfo.details.isFinished == true">Finished</span>
+                        </div>
+                    </div>
+                </ion-content>
+            </ion-slide>
+            <ion-slide id="projectMilestones" ng-style="{'height' : deviceHeight + 'px'}">
+                <ion-content>
+                <!-- milestones -->
+                    <ion-spinner icon="android" ng-show="milestonesListSpinner == true"></ion-spinner>
+                    <div class="list">
+                        <a ng-repeat="(key, milestone) in projectInfo.milestones | orderBy : 'dateCreated'" class="item item-avatar" ng-class="{'not-seen' : checkIfSeen(milestone) == true}" ng-click="openMilestoneModal(milestone)">
+                            <label class="item-image" ng-style="{'background-color':milestone.colorLabel}">
+                                <span>{{getFirstLetter(milestone.title)}}</span>
+                            </label>
+                            <h2>{{getProjectName(milestone.title)}}</h2>
+                            <p>Progress : {{getPercentage(milestone.$id)}}%</p>
+                        </a>
+                    </div>
+                </ion-content>
+                <button  ng-if="clientUid == projectInfo.details.owner" id="addMilestone" ng-click="openAddMilestone()" class="button button-icon" ng-style="{'background-color': projectInfo.details.colorLabel}">
+                    <i class="icon ion-plus"></i>
+                </button>
+            </ion-slide>
+            <ion-slide id="projectMembers" ng-style="{'height' : deviceHeight + 'px'}">
+                <ion-content>
+                    <!-- members -->
+                    <div class="list list-inset">
+                        <label class="item item-input">
+                            <i class="icon ion-search placeholder-icon"></i>
+                            <input type="text" placeholder="Search" ng-model="mSearch.keyword">
+                        </label>
+                    </div>
+                    <ion-spinner icon="android" ng-show="membersListSpinner == true"></ion-spinner>
+                    <div class="members list">
+                        <a ng-repeat="user in projectInfo.members | orderBy : 'details.firstName' | filter: membersSearch" class="item item-avatar" href="#">
+                            <img ng-if="user.pictures.picture == ''" src="./img/def-profile.png"  ng-click="openProfile(user.details.$id)" >
+                            <img ng-if="user.pictures.picture != ''" src="{{user.pictures.picture}}"  ng-click="openProfile(user.details.$id)" >
+                            <h2  ng-click="openProfile(user.details.$id)" >{{user.details.firstName}} {{user.details.lastName}}</h2>
+                            <p ng-if="user.details.positionPrivate == false"  ng-click="openProfile(user.details.$id)" >{{user.details.position}}</p>
+                            <button ng-if="uid == projectInfo.details.owner" class="button button-clear button-icon icon ion-close" ng-click="removeMember(user.details)"></button>
+                        </a>
+                    </div>
+                </ion-content>
+                <button  ng-if="clientUid == projectInfo.details.owner" id="addMembers" class="button button-icon" ng-style="{'background-color': projectInfo.details.colorLabel}" ng-click="openAddMember()">
+                    <i class="icon ion-person-add"></i>
+                </button>
+            </ion-slide>
+            <ion-slide id="projectTimeLogs" ng-style="{'height' : deviceHeight + 'px'}">
+                <!-- time logs -->
+                <ion-content>
+                    <ion-spinner icon="android" ng-show="timeLogsListSpinner == true"></ion-spinner>
+                    <div class="timeLogs list">
+                        <div ng-repeat="log in projectInfo.time_logs | orderBy : '-dateCreated' | limitTo : projectTimeLogsLimit" class="item item-avatar item-icon-right">
+                            <img ng-if="projectInfo.involved_users[log.user].pictures.picture == ''" src="./img/def-profile.png"  ng-click="openProfile(log.user)" >
+                            <img ng-if="projectInfo.involved_users[log.user].pictures.picture != ''" src="{{projectInfo.involved_users[log.user].pictures.picture}}"  ng-click="openProfile(log.user)" >
+                            <h2  ng-click="openProfile(log.user)">{{projectInfo.involved_users[log.user].details.firstName}} {{projectInfo.involved_users[log.user].details.lastName}}</h2>
+                            <p class="date" ng-if="log.isEdited == true">{{displayDate(log.dateCreated)}} · Edited</p>
+                            <p class="date" ng-if="log.isEdited != true">{{displayDate(log.dateCreated)}}</p>
+                            <p>{{getAllottedHours(log.decimal)}} · {{log.description}}</p>
+                            <button ng-if="clientUid == projectInfo.details.owner || clientUid == log.user" class="button button-clear button-icon icon ion-android-more-vertical" ng-click="openLogPopover($event, 7, log)"></button>
+                        </div>
+                    </div>
+                    <ion-infinite-scroll immediate-check="false" ng-if="!allProjectTimeLogsLoaded && timeLogsListSpinner == false && projectTimeLogsScrollable == true" distance="1%" spinner="android" on-infinite="loadProjectTimeLogs()"></ion-infinite-scroll>
+                </ion-content>
+                <button id="addTimeLog" class="button button-icon" ng-style="{'background-color': projectInfo.details.colorLabel}" ng-click="openTimeLogPopup()">
+                    <i class="icon ion-plus"></i>
+                </button>
+            </ion-slide>
+            <ion-slide id="projectGraph" ng-style="{'height' : deviceHeight + 'px'}">
+                <!-- chart -->
+                <ion-content>
+                    <div class="graph-wrapper" ng-style="{'height' : deviceHeight + 'px'}">
+                        <div class="graph-container">
+                            <canvas id="doughnut" width="300" height="300"></canvas>
+                            <span ng-if="percentage < 100" id="percentage">{{percentage}}%</span>
+                            <span ng-if="percentage >= 100" ng-class="{'error' : percentage > 100}" id="percentage">{{percentage}}</span>
+                        </div>
+                    </div>
+                </ion-content>
+            </ion-slide>
+            <ion-slide id="projectLogs" ng-style="{'height' : deviceHeight + 'px'}">
+                <ion-content>
+                    <ion-spinner icon="android" ng-show="projectLogsListSpinner == true"></ion-spinner>
+                    <div class="projectLogs list">
+                        <div ng-repeat="log in projectInfo.project_logs | orderBy : '-date' | limitTo : projectLogsLimit" class="item item-avatar">
+                            <img ng-if="projectInfo.involved_users[log.from].pictures.picture == ''" src="./img/def-profile.png"  ng-click="openProfile(log.from)" >
+                            <img ng-if="projectInfo.involved_users[log.from].pictures.picture != ''" src="{{projectInfo.involved_users[log.from].pictures.picture}}"  ng-click="openProfile(log.from)" >
+                            <p ng-if="log.type == 'create_project'"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> created the project.</p>
+                            <p ng-if="log.type == 'edit_project'"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> edited the project.</p>
+                            <p ng-if="log.type == 'member_leave'"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> left the project.</p>
+                            <p ng-if="log.type == 'create_milestone' || log.type == 'edit_milestone' || log.type == 'delete_milestone' || log.type == 'add_log'"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> {{log.message}}</p>
+                            <p ng-if="log.type == 'edit_log' && log.from == log.to"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> edited his/her {{log.message}}</p>
+                            <p ng-if="log.type == 'edit_log' && log.from != log.to"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> edtited <a class="name" ng-click="openProfile(log.to)">{{projectInfo.involved_users[log.to].details.firstName}} {{projectInfo.involved_users[log.to].details.lastName}}</a> 's {{log.message}}</p>
+                            <p ng-if="log.type == 'delete_log' && log.from == log.to"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> deleted his/her {{log.message}} log.</p>
+                            <p ng-if="log.type == 'delete_log' && log.from != log.to"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> deleted <a class="name" ng-click="openProfile(log.to)">{{projectInfo.involved_users[log.to].details.firstName}} {{projectInfo.involved_users[log.to].details.lastName}}</a> 's {{log.message}} log.</p>
+                            <p ng-if="log.type == 'add_member'"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> added <a class="name" ng-click="openProfile(log.to)">{{projectInfo.involved_users[log.to].details.firstName}} {{projectInfo.involved_users[log.to].details.lastName}}</a> to the project.</p>
+                            <p ng-if="log.type == 'remove_member'"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> removed <a class="name" ng-click="openProfile(log.to)">{{projectInfo.involved_users[log.to].details.firstName}} {{projectInfo.involved_users[log.to].details.lastName}}</a> to the project.</p>
+                            <p ng-if="log.type == 'pass_ownership'"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> passed the ownership of the project to <a class="name" ng-click="openProfile(log.to)">{{projectInfo.involved_users[log.to].details.firstName}} {{projectInfo.involved_users[log.to].details.lastName}}</a>.</p>
+                            <p ng-if="log.type == 'edit_log_description' && log.from == log.to"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> edited his/her log.</p>
+                            <p ng-if="log.type == 'edit_log_description' && log.from != log.to"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> edtited <a class="name" ng-click="openProfile(log.to)">{{projectInfo.involved_users[log.to].details.firstName}} {{projectInfo.involved_users[log.to].details.lastName}}</a> 's log.</p>
+
+                            <p ng-if="(log.date > (currentTime-86400000))" class="date">{{log.date | amDateFormat:'h:mm a'}}</p>
+                            <p ng-if="(log.date < (currentTime-86400000))" class="date">{{log.date | amDateFormat:'MMM Do'}}</p>
+                        </div>
+                    </div>
+                    <ion-infinite-scroll immediate-check="false" ng-if="!allProjectLogsLoaded && projectLogsListSpinner == false && projectLogsScrollable == true" spinner="android" distance="1%" on-infinite="loadProjectLogs()"></ion-infinite-scroll>
+                </ion-content>
+            </ion-slide>
+        </ion-slide-box>
+    </tab-slide-box>
+</ion-modal-view>

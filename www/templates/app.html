@@ -1,0 +1,79 @@
+<ion-side-menus ng-controller="App">
+    <!-- Center content -->
+    <ion-side-menu-content ng-init="init()">
+        <ion-header-bar class="bar-balanced">
+            <button class="button button-icon" ng-click="toggleLeft()">
+                <i class="icon ion-navicon"></i>
+            </button>
+            <h1 class="title">{{currentNavItem}}</h1>
+        </ion-header-bar>
+        <div ui-view="main_app"></div>
+    </ion-side-menu-content>
+
+    <!-- Left menu -->
+    <ion-side-menu side="left">
+        <ion-content id="appNav">
+            <ion-list id="navList">
+                <ion-item id="navHeader">
+                    <div>
+                        <span class="cover" ng-if="pictures.cover != ''" ng-style="{'background-image' : 'url('+pictures.cover+')'}"></span>
+                        <span class="cover" ng-if="pictures.cover == ''" ng-style="{'background-image' : 'url(./img/def-cover.png)'}"></span>
+                        <div>
+                            <span class="picture" ng-if="pictures.picture != ''" ng-style="{'background-image' : 'url('+pictures.picture+')'}"></span>
+                            <span class="picture" ng-if="pictures.picture == ''" ng-style="{'background-image' : 'url(./img/def-profile.png)'}"></span>
+                            <p id="name">{{data.firstName}} {{data.lastName}}</p>
+                            <p id="position">{{data.position}}</p>
+                        </div>
+                    </div>
+                </ion-item>
+                <ion-item class="item-icon-left" ng-class="{'active': 0 == currentNavPosition}" ng-click="setActiveNav(0)"
+                          href="#/app/{{uid}}/projects">
+                    <i class="app-icon icon ion-android-folder-open"></i>
+                    <h2>Projects</h2>
+                    <span class="badge badge-assertive">{{navProjectsBadge}}</span>
+                </ion-item>
+                <ion-item class="item-icon-left" ng-class="{'active': 1 == currentNavPosition}" ng-click="setActiveNav(1)"
+                          href="#/app/{{uid}}/messages">
+                    <i class="app-icon icon ion-chatbubble"></i>
+                    <h2>Messages</h2>
+                    <span class="badge badge-assertive">{{navMessagesBadge}}</span>
+                </ion-item>
+                <ion-item class="item-icon-left" ng-class="{'active': 2 == currentNavPosition}" ng-click="setActiveNav(2)"
+                          href="#/app/{{uid}}/connections">
+                    <i class="app-icon icon ion-ios-people"></i>
+                    <h2>Connections</h2>
+                    <span class="badge badge-assertive">{{navConnectionBadge}}</span>
+                </ion-item>
+            </ion-list>
+            <ion-list id="settingsList">
+                <ion-item id="settingsHeader">
+                    <h3>Help & Settings</h3>
+                </ion-item>
+                <ion-item class="item-icon-left" ng-class="{'active': 3 == currentNavPosition}" ng-click="setActiveNav(3)"
+                          href="#/app/{{uid}}/account-settings">
+                    <i class="app-icon icon ion-ios-gear"></i>
+                    <h2>Account Settings</h2>
+                </ion-item>
+                <ion-item class="item-icon-left" ng-class="{'active': 4 == currentNavPosition}" ng-click="setActiveNav(4)"
+                          href="#/app/{{uid}}/terms">
+                    <i class="app-icon icon ion-clipboard"></i>
+                    <h2>Terms of Service</h2>
+                </ion-item>
+                <ion-item class="item-icon-left" ng-class="{'active': 5 == currentNavPosition}" ng-click="setActiveNav(5)"
+                          href="#/app/{{uid}}/privacy">
+                    <i class="app-icon icon ion-locked"></i>
+                    <h2>Privacy Policy</h2>
+                </ion-item>
+                <ion-item class="item-icon-left" ng-class="{'active': 6 == currentNavPosition}" ng-click="setActiveNav(6)"
+                          href="#/app/{{uid}}/about">
+                    <i class=   "app-icon icon ion-ios-information-outline"></i>
+                    <h2>About</h2>
+                </ion-item>
+                <ion-item class="app-icon item-icon-left" ng-click="logOut()">
+                    <i class="app-icon icon ion-power"></i>
+                    <h2>Logout</h2>
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-side-menu>
+</ion-side-menus>

@@ -1,0 +1,87 @@
+<ion-modal-view>
+    <div id="milestoneDetails">
+        <ion-header-bar class="bar bar-header" ng-style="{'background-color' : milestoneDetails.colorLabel}">
+            <button id="closeMessage" class="menuButton button button-clear button-icon icon ion-chevron-left" ng-click="closeModal(5)"></button>
+            <h1 class="title">{{milestoneDetails.title}}</h1>
+            <button ng-if="uid == projectInfo.details.owner" ng-click="openPopover($event, 1)" class="menuButton button button-clear button-icon icon ion-android-more-vertical"></button>
+        </ion-header-bar>
+        <div class="tabs" ng-style="{'background-color' : milestoneDetails.colorLabel}">
+            <a class="tab-item" ng-class="{'tab-item-active' : milestoneTab == 0}" ng-click="changeSection(0, milestoneDetails.$id)">Tasks </a>
+            <a class="tab-item" ng-class="{'tab-item-active' : milestoneTab == 1}" ng-click="changeSection(1, milestoneDetails.$id)">Discussions</a>
+            <a class="tab-item" ng-class="{'tab-item-active' : milestoneTab == 2}" ng-click="changeSection(2, milestoneDetails.$id)">Logs</a>
+        </div>
+        <ion-slide-box active-slide="milestoneTab" on-slide-changed="changeSection($index, milestoneDetails.$id)">
+            <ion-slide id="milestoneTasks" ng-style="{'height' : (deviceHeight + 30) + 'px'}">
+                <ion-content>
+                    <ion-spinner icon="android" ng-if="taskListSpinner == true"></ion-spinner>
+                    <ul class="list">
+                        <li ng-repeat="(key, task) in projectInfo.milestone_tasks[milestoneDetails.$id]" class="item item-checkbox item-icon-right">
+                            <label class="checkbox col col-80">
+                                <input type="checkbox" ng-model="task.value" ng-click="editTaskValue(task.value, task)">
+                            </label>
+                            {{task.title}}
+                            <i class="icon ion-android-more-vertical" ng-click="editTaskTitle($event, 2, task)"></i>
+                        </li>
+                    </ul>
+                </ion-content>
+                <button ng-click="openAddTask()" class="add button button-icon" ng-style="{'background-color': milestoneDetails.colorLabel}">
+                    <i class="icon ion-plus"></i>
+                </button>
+            </ion-slide>
+            <ion-slide id="milestoneDiscussions" ng-style="{'height' : (deviceHeight + 30) + 'px'}">
+                <ion-content>
+                    <ion-spinner icon="android" ng-if="discussionListSpinner == true"></ion-spinner>
+                    <div class="list">
+                        <div  ng-repeat="(key, discussion) in projectInfo.milestone_discussions[milestoneDetails.$id] | orderBy : '-dateModified' | limitTo : milestoneDiscussionsLimit" class="card">
+                            <div class="item item-avatar item-icon-right">
+                                <img ng-if="projectInfo.involved_users[discussion.user].pictures.picture == ''" src="./img/def-profile.png" ng-click="openProfile(discussion.user)">
+                                <img ng-if="projectInfo.involved_users[discussion.user].pictures.picture != ''" src="{{projectInfo.involved_users[discussion.user].pictures.picture}}" ng-click="openProfile(discussion.user)">
+                                <h2 class="name" ng-click="openProfile(discussion.user)">{{projectInfo.involved_users[discussion.user].details.firstName}} {{projectInfo.involved_users[discussion.user].details.lastName}}</h2>
+                                <p class="date" ng-if="discussion.isEdited != true">{{displayDate(discussion.dateCreated)}}</p>
+                                <p class="date" ng-if="discussion.isEdited == true">{{displayDate(discussion.dateCreated)}} · Edited</p>
+                            </div>
+                            <div class="item item-body" ng-click="openViewPostModal(discussion)">
+                                <p class="post">{{discussion.title}}</p>
+                                <p class="commentCtr" ng-if="projectInfo.discussion_comments[milestoneDetails.$id][discussion.$id].length == 1">{{projectInfo.discussion_comments[milestoneDetails.$id][discussion.$id].length}} Comment</p>
+                                <p class="commentCtr" ng-if="projectInfo.discussion_comments[milestoneDetails.$id][discussion.$id].length != 1">{{projectInfo.discussion_comments[milestoneDetails.$id][discussion.$id].length}} Comments</p>
+                            </div>
+                        </div>
+                    </div>
+                    <ion-infinite-scroll immediate-check="false" ng-if="!allMilesoneDiscussionsLoaded && discussionListSpinner == false" spinner="android" on-infinite="loadMilestoneDiscussions()"></ion-infinite-scroll>
+                </ion-content>
+                <button ng-click="openModal(6)" class="add button button-icon" ng-style="{'background-color': milestoneDetails.colorLabel}">
+                    <i class="icon ion-android-create"></i>
+                </button>
+            </ion-slide>
+            <ion-slide id="milestoneLogs" ng-style="{'height' : (deviceHeight + 30) + 'px'}">
+                <ion-content>
+                    <ion-spinner icon="android" ng-if="milestoneLogsSpinner == true"></ion-spinner>
+                    <div class="list">
+                        <div  ng-repeat="(key, log) in projectInfo.milestone_logs[milestoneDetails.$id] | orderBy : '-date' | limitTo : milestoneLogsLimit">
+                            <div class="item item-avatar">
+                                <img ng-if="projectInfo.involved_users[log.from].pictures.picture == ''" src="./img/def-profile.png" ng-click="openProfile(log.from)">
+                                <img ng-if="projectInfo.involved_users[log.from].pictures.picture != ''" src="{{projectInfo.involved_users[log.from].pictures.picture}}" ng-click="openProfile(log.from)">
+                                <p ng-if="log.type == 'add_task' || log.type == 'edit_task' || log.type == 'delete_task' || log.type == 'check_task'"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> {{log.message}}</p>
+                                <p ng-if="log.type == 'add_discussion'"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> added a <a class="post" ng-click="checkIfPostExists(log.discussionId)">post</a>.</p>
+                                <p ng-if="log.type == 'edit_discussion'"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> edited his/her <a class="post" ng-click="checkIfPostExists(log.discussionId)">post</a>.</p>
+                                <p ng-if="log.type == 'delete_discussion' && log.posterUid == null"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> deleted his/her <a class="post" ng-click="checkIfPostExists(log.discussionId)">post</a>.</p>
+                                <p ng-if="log.type == 'delete_discussion' && log.posterUid != null && log.posterUid == log.from"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> deleted his/her <a class="post" ng-click="checkIfPostExists(log.discussionId)">post</a>.</p>
+                                <p ng-if="log.type == 'delete_discussion' && log.posterUid != null && log.posterUid != log.from"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> deleted <a class="name" ng-click="openProfile(log.posterUid)">{{projectInfo.involved_users[log.posterUid].details.firstName}} {{projectInfo.involved_users[log.posterUid].details.lastName}}' s</a> <a class="post" ng-click="checkIfPostExists(log.discussionId)">post</a>.</p>
+                                <p ng-if="log.type == 'add_comment' && log.from != log.discussionPosterId"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> commented on <a class="name" ng-click="openProfile(log.discussionPosterId)">{{projectInfo.involved_users[log.discussionPosterId].details.firstName}} {{projectInfo.involved_users[log.discussionPosterId].details.lastName}}' s</a> <a class="post" ng-click="checkIfPostExists(log.discussionId)">post</a>.</p>
+                                <p ng-if="log.type == 'add_comment' && log.from == log.discussionPosterId"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> commented on his/her <a class="post" ng-click="checkIfPostExists(log.discussionId)">post</a>.</p>
+                                <p ng-if="log.type == 'edit_comment' && log.from != log.discussionPosterId"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> edited his/her comment on <a class="name" ng-click="openProfile(log.discussionPosterId)">{{projectInfo.involved_users[log.discussionPosterId].details.firstName}} {{projectInfo.involved_users[log.discussionPosterId].details.lastName}}' s</a> <a class="post" ng-click="checkIfPostExists(log.discussionId)">post</a>.</p>
+                                <p ng-if="log.type == 'edit_comment' && log.from == log.discussionPosterId"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> edited his/her comment on his/her <a class="post" ng-click="checkIfPostExists(log.discussionId)">post</a>.</p>
+                                <p ng-if="log.type == 'delete_comment' && log.from != log.discussionPosterId"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> deleted his/her comment on <a class="name" ng-click="openProfile(log.discussionPosterId)">{{projectInfo.involved_users[log.discussionPosterId].details.firstName}} {{projectInfo.involved_users[log.discussionPosterId].details.lastName}}' s</a> <a class="post" ng-click="checkIfPostExists(log.discussionId)">post</a>.</p>
+                                <p ng-if="log.type == 'delete_comment' && log.from == log.discussionPosterId"><a class="name" ng-click="openProfile(log.from)">{{projectInfo.involved_users[log.from].details.firstName}} {{projectInfo.involved_users[log.from].details.lastName}}</a> deleted his/her comment on his/her <a class="post" ng-click="checkIfPostExists(log.discussionId)">post</a>.</p>
+
+                                <p ng-if="(log.date > (currentTime-86400000))" class="date">{{log.date | amDateFormat:'h:mm a'}}</p>
+                                <p ng-if="(log.date < (currentTime-86400000))" class="date">{{log.date | amDateFormat:'MMM Do'}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <ion-infinite-scroll immediate-check="false" ng-if="!allMilesoneLogsLoaded && milestoneLogsSpinner == false" spinner="android" on-infinite="loadMilestoneLogs()"></ion-infinite-scroll>
+                </ion-content>
+            </ion-slide>
+        </ion-slide-box>
+    </div>
+</ion-modal-view>

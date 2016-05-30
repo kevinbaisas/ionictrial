@@ -1,0 +1,20 @@
+<ion-view ng-controller="Register">
+    <ion-content class="settings">
+        <h1>Account Settings</h1>
+        <p ng-class="pClass" ng-bind-html="accountHint"></p>
+        <form novalidate>
+            <div class="list list-inset">
+                <label class="item item-input">
+                    <input type="text" ng-model="accountDetails.email" placeholder="Email" class="checkEmail">
+                </label>
+                <label class="item item-input">
+                    <input type="password" ng-model="accountDetails.password" placeholder="Password">
+                </label>
+            </div>
+            <div class="ctnBtn">
+                <button ng-click="goToPersonal()" ng-disabled="disabled" class="button button-light button-border-radius">Continue</button>
+                <a href="#/login">Sign In</a>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

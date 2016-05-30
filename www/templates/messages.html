@@ -1,0 +1,16 @@
+<div id="messages" ng-controller="Messages" ng-init="initializeMessages()">
+    <ion-content>
+        <ion-spinner icon="android" ng-show="messagesListSpinner == true"></ion-spinner>
+        <div class="list">
+            <a ng-repeat="(key, message) in messages | orderBy : '-date'" ng-class="{'unseen': message.notifications > 0}" ng-click="openMessagesModal(message.key)" class="item item-avatar" href="#">
+                <img ng-if="message.picture == ''" src="./img/def-profile.png">
+                <img ng-if="message.picture != ''" src="{{message.picture}}">
+                <h2 ng-class="{'bold': message.notifications > 0}" class="col col-75">{{message.firstName}} {{message.lastName}}</h2>
+                <span ng-if="(message.isOnline == true && inConnection(message.uid))" class="online"></span>
+                <p class="message">{{message.sender}}: {{message.message}}</p>
+                <p ng-if="(message.date > (currentTime-86400000))" class="date">{{message.date | amDateFormat:'h:mm a'}}</p>
+                <p ng-if="(message.date < (currentTime-86400000))" class="date">{{message.date | amDateFormat:'MMM Do'}}</p>
+            </a>
+        </div>
+    </ion-content>
+</div>

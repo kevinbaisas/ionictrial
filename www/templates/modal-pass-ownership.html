@@ -1,0 +1,19 @@
+<ion-modal-view id="passOwnershipModal">
+    <ion-header-bar class="bar bar-header" ng-style="{'background-color':projectInfo.details.colorLabel}">
+        <button class="menuButton button button-clear button-icon icon-left icon ion-android-close" ng-click="closeModal(11)">Cancel</button>
+        <button class="menuButton button button-clear button-icon icon icon-left ion-android-done" ng-click="saveOwner()">Done</button>
+    </ion-header-bar>
+    <ion-content>
+        <ion-spinner icon="android" ng-show="membersListSpinner == true"></ion-spinner>
+        <div class="members list">
+            <label ng-repeat="user in projectInfo.members | orderBy : 'details.firstName' | filter: membersSearch">
+                <ion-radio ng-model="ownerDetails.uid" class="item-avatar-left" ng-value="user.details.$id">
+                    <img ng-if="user.pictures.picture == ''" class="item-image" src="./img/def-profile.png"  ng-click="openProfile(user.details.$id)" >
+                    <img ng-if="user.pictures.picture != ''" class="item-image" src="{{user.pictures.picture}}"  ng-click="openProfile(user.details.$id)" >
+                    <h2  ng-click="openProfile(user.details.$id)" >{{user.details.firstName}} {{user.details.lastName}}</h2>
+                    <p ng-if="user.details.positionPrivate == false"  ng-click="openProfile(user.details.$id)" >{{user.details.position}}</p>
+                </ion-radio>
+            </label>
+        </div>
+    </ion-content>
+</ion-modal-view>

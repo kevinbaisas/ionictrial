@@ -1,0 +1,7 @@
+<div class="colorPicker list">
+    <label class="item item-radio" ng-repeat="item in colorPickerList" ng-value="item.value" ng-model="milestoneDetails.colorLabel">
+        <input type="radio" name="radio-group" ng-value="item.value" ng-model="milestoneDetails.colorLabel" value="item.value">
+        <div class="item-content colorPickerContent" ng-style="{'background-color':item.value}"></div>
+        <i class="radio-icon icon ion-checkmark colorPickerPopupCheck"></i>
+    </label>
+</div>

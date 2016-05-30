@@ -1,0 +1,60 @@
+<ion-modal-view id="profileModal" ng-controller="ProfileModal">
+    <ion-content>
+        <div id="header">
+            <span class="cover" ng-if="userPicture.cover != ''"  ng-style="{'background-image' : 'url('+userPicture.cover+')'}"></span>
+            <span class="cover" ng-if="userPicture.cover == ''"  ng-style="{'background-image' : 'url(./img/def-cover.png)'}"></span>
+            <span class="picture" ng-if="userPicture.picture != ''" ng-style="{'background-image' : 'url('+userPicture.picture+')'}"></span>
+            <span class="picture" ng-if="userPicture.picture == ''" ng-style="{'background-image' : 'url(./img/def-profile.png)'}"></span>
+            <h2>{{userProfile.firstName}} {{userProfile.lastName}}</h2>
+            <button id="closeProfile" class="button button-clear button-icon icon ion-close" ng-click="closeModal(4)"></button>
+        </div>
+        <div class="row">
+            <div class="col col-50" ng-if="isConnected == 'connected'" ng-click="removeConnection(userProfile.$id, userProfile.firstName)">
+                <i class="ion-checkmark-circled active"></i>
+                <span class="active">Connected</span>
+            </div>
+            <div class="col col-50" ng-if="isConnected == 'requested'" ng-click="cancelRequest(userProfile.$id)">
+                <i class="ion-ios-personadd active"></i>
+                <span class="active">Requested</span>
+            </div>
+            <div class="col col-50" ng-if="isConnected == 'respond'" ng-click="respondRequest(userProfile.$id)">
+                <i class="ion-alert active"></i>
+                <span class="active">Respond</span>
+            </div>
+            <div class="col col-50" ng-if="isConnected == 'no'" ng-click="sendConnectionRequest(userProfile.$id)">
+                <i class="ion-ios-personadd"></i>
+                <span>Add Connection</span>
+            </div>
+            <div class="col col-50" ng-click="sendMessage(userProfile.$id, userProfile.firstName + ' ' + userProfile.lastName)">
+                <i class="ion-chatbubble"></i>
+                <span>Message</span>
+            </div>
+        </div>
+        <div class="list card" ng-show="userProfile.companyPrivate == false || userProfile.positionPrivate == false">
+            <div class="item item-divider">
+                Work
+            </div>
+            <div class="item item-text-wrap" ng-show="userProfile.companyPrivate == false">
+                <h3>Company</h3>
+                <span>{{userProfile.company}}</span>
+            </div>
+            <div class="item item-text-wrap" ng-show="userProfile.positionPrivate == false">
+                <h3>Position</h3>
+                <span>{{userProfile.position}}</span>
+            </div>
+        </div>
+        <div class="list card" ng-show="userProfile.contactPrivate == false || userProfile.emailPrivate == false">
+            <div class="item item-divider">
+                Contact Info
+            </div>
+            <div class="item item-text-wrap" ng-show="userProfile.emailPrivate == false">
+                <h3>Email</h3>
+                <span>{{userProfile.email}}</span>
+            </div>
+            <div class="item item-text-wrap" ng-show="userProfile.contactPrivate == false">
+                <h3>Contact No</h3>
+                <span>{{userProfile.contact}}</span>
+            </div>
+        </div>
+    </ion-content>
+</ion-modal-view>

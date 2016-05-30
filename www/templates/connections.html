@@ -1,0 +1,69 @@
+<div id="connections" ng-controller="Connections" ng-init="init()">
+    <ion-tabs class="tabs-icon-top tabs-balanced">
+        <ion-tab title="Connections" icon-off="ion-ios-people-outline" badge="connectionBadgeCount" badge-style="badge-assertive" icon-on="ion-ios-people" ng-click="changeSection(0)"></ion-tab>
+        <ion-tab title="Requests" icon-off="ion-ios-personadd-outline" badge="requestBadgeCount" badge-style="badge-assertive" icon-on="ion-ios-personadd" ng-click="changeSection(1)"></ion-tab>
+        <ion-tab title="Search" ng-if="clientUid" icon-off="ion-ios-search" icon-on="ion-ios-search-strong" ng-click="changeSection(2)"></ion-tab>
+    </ion-tabs>
+    <ion-slide-box active-slide="activeSlide" on-slide-changed="changeSection($index)">
+        <ion-slide ng-style="{'height' : deviceHeight + 'px'}">
+            <ion-scroll>
+                <div class="list list-inset">
+                    <label class="item item-input">
+                        <i class="icon ion-search placeholder-icon"></i>
+                        <input type="text" placeholder="Search" ng-model="connectionKeyword" ng-change="setConnectionKeyword(connectionKeyword)">
+                    </label>
+                </div>
+                <ion-spinner icon="android" ng-show="connectionListSpinner == true"></ion-spinner>
+                <div class="list">
+                    <a ng-repeat="user in connections  | filter: connectionSearch | limitTo: connectionsLimit" ng-click="openProfileModal(user.$id)" class="item item-avatar" href="#">
+                        <img ng-if="user.picture == ''" src="./img/def-profile.png">
+                        <img ng-if="user.picture != ''" src="{{user.picture}}">
+                        <h2>{{user.firstName}} {{user.lastName}}</h2>
+                        <p ng-if="user.positionPrivate == false">{{user.position}}</p>
+                    </a>
+                </div>
+                <ion-infinite-scroll immediate-check="false" ng-if="!allConnectionsLoaded && connectionListSpinner == false && connectionScrollable == true" spinner="android" distance="1%" on-infinite="loadConnections()"></ion-infinite-scroll>
+            </ion-scroll>
+        </ion-slide>
+        <ion-slide ng-style="{'height' : deviceHeight + 'px'}">
+            <ion-scroll>
+                <div class="list list-inset">
+                    <label class="item item-input">
+                        <i class="icon ion-search placeholder-icon"></i>
+                        <input type="text" placeholder="Search" ng-model="requestKeyword" ng-change="setRequestKeyword(requestKeyword)">
+                    </label>
+                </div>
+                <ion-spinner icon="android" ng-show="requestListSpinner == true"></ion-spinner>
+                <div class="list">
+                    <a ng-repeat="user in requests | filter: requestSearch | limitTo: requestsLimit" ng-click="openProfileModal(user.$id)" class="item item-avatar" href="#">
+                        <img ng-if="user.picture == ''" src="./img/def-profile.png">
+                        <img ng-if="user.picture != ''" src="{{user.picture}}">
+                        <h2>{{user.firstName}} {{user.lastName}}</h2>
+                        <p ng-if="user.positionPrivate == false">{{user.position}}</p>
+                    </a>
+                </div>
+                <ion-infinite-scroll immediate-check="false" ng-if="!allRequestsLoaded && requestListSpinner == false && requestScrollable == true" spinner="android" distance="1%" on-infinite="loadRequests()"></ion-infinite-scroll>
+            </ion-scroll>
+        </ion-slide>
+        <ion-slide ng-style="{'height' : deviceHeight + 'px'}" ng-controller="ConnectionsSearch">
+            <ion-scroll>
+                <div class="list list-inset">
+                    <label class="item item-input">
+                        <i class="icon ion-search placeholder-icon"></i>
+                        <input type="text" ng-model="searchAllInput" ng-keyup="searchAll(searchAllInput)" placeholder="Search">
+                    </label>
+                </div>
+                <ion-spinner icon="android" ng-show="searchConnectionSpinner == true"></ion-spinner>
+                <div class="list">
+                    <a ng-repeat="(key, user) in searchAllCollection" ng-click="openProfileModal(key)" class="item item-avatar" href="#">
+                        <img ng-if="user.picture == ''" src="./img/def-profile.png">
+                        <img ng-if="user.picture != ''" src="{{user.picture}}">
+                        <h2>{{user.firstName}} {{user.lastName}}</h2>
+                        <p ng-if="user.positionPrivate == false">{{user.position}}</p>
+                    </a>
+                </div>
+                <ion-infinite-scroll immediate-check="false" ng-if="!allSearchLoaded && searchConnectionSpinner == false && searchScrollable == true" spinner="android" distance="1%" on-infinite="loadSearches()"></ion-infinite-scroll>
+            </ion-scroll>
+        </ion-slide>
+    </ion-slide-box>
+</div>

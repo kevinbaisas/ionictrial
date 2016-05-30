@@ -1,0 +1,19 @@
+<ion-modal-view>
+    <div id="addPost">
+        <ion-header-bar class="bar bar-header" ng-style="{'background-color' : milestoneDetails.colorLabel}">
+            <button id="closeMessage" class="menuButton button button-clear button-icon icon ion-chevron-left" ng-click="closeModal(6)"></button>
+            <h1 class="title">Start a Discussion</h1>
+            <button class="menuButton button button-clear button-icon icon icon-left ion-android-done" ng-click="addPost()">Post</button>
+        </ion-header-bar>
+        <ion-content>
+            <div class="list">
+                <div class="item item-avatar" ng-style="{'height' : (deviceHeight + 88) + 'px'}">
+                    <img ng-if="pictures.picture != ''" src="{{pictures.picture}}" />
+                    <img ng-if="pictures.picture == ''" src="./img/def-profile.png" />
+                    <input type="text" ng-model="milestonePostDetails.title" placeholder="Title"/>
+                    <textarea ng-model="milestonePostDetails.description" placeholder="Description"></textarea>
+                </div>
+            </div>
+        </ion-content>
+    </div>
+</ion-modal-view>

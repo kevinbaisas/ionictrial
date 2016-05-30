@@ -1,0 +1,82 @@
+.tabbed-slidebox .slider {
+    height: 100%;
+}
+.tabbed-slidebox.btm .slider {
+    margin-bottom: -50px;
+}
+.tabbed-slidebox .slider-slides {
+    width: 100%;
+}
+
+.tabbed-slidebox .slider-slide {
+    padding-top: 0px;
+    color: #000;
+    background-color: #fff;
+    font-weight: 300;
+}
+
+.tabbed-slidebox .tsb-icons {
+    text-align: center;
+    position: relative;
+    height: 44px;
+}
+
+.tabbed-slidebox .tsb-ic-wrp {
+    display: flex;
+    position: relative;
+    height: 44px;
+    -webkit-transition: -webkit-transform 0.3s; /* For Safari 3.1 to 6.0 */
+    -webkit-transform:translate3d(0,0,0);
+}
+
+.tabbed-slidebox .tsb-icons a {
+    display: inline-block;
+    width: 54px;
+    height: 100%;
+    font-size: 1.5em;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.tabbed-slidebox .tsb-icons a.active {
+    color: #FFF;
+    font-size: 1.5em;
+    -webkit-transform:translate3d(0,0,0);
+}
+
+.tabbed-slidebox .tabbed-slidebox {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+}
+
+.tsb-hscroll.scroll-view{
+    white-space: nowrap;
+    margin:0 auto;
+}
+.tsb-hscroll.scroll-view .scroll-bar{
+    visibility:hidden;
+}
+.tsb-hscroll.scroll-view .scroll.onscroll{
+    -webkit-transition: -webkit-transform 0.3s; /* For Safari 3.1 to 6.0 */
+}
+
+.tabbed-slidebox .tsb-icons .scroll {
+    height: 44px;
+    padding-top: 16px;
+}
+
+.tabbed-slidebox .tsb-icons .scroll a{
+    width:auto;
+    display: inline-block;
+    height: 100%;
+    font-size: 14px;
+    line-height: 1.5em;
+    text-decoration: none;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-bottom: 3px solid transparent;
+}
+.tabbed-slidebox .tsb-icons .scroll a.active {
+    font-size: 14px;
+    border-bottom: 3px solid #fff;
+}

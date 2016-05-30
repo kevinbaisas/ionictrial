@@ -1,0 +1,17 @@
+<ion-modal-view>
+    <div id="addPost">
+        <ion-header-bar class="bar bar-header" ng-style="{'background-color' : milestoneDetails.colorLabel}">
+            <button class="menuButton button button-clear button-icon icon-left icon ion-android-close" ng-click="changeEditComment(false)">Cancel</button>
+            <button class="menuButton button button-clear button-icon icon icon-left ion-android-done" ng-click="saveComment()">Save</button>
+        </ion-header-bar>
+        <ion-content>
+            <div class="list">
+                <div class="item item-avatar" ng-style="{'height' : (deviceHeight + 88) + 'px'}">
+                    <img ng-if="pictures.picture != ''" src="{{pictures.picture}}" />
+                    <img ng-if="pictures.picture == ''" src="./img/def-profile.png" />
+                    <textarea ng-model="commentEditDetails.text" placeholder="Add Comment"></textarea>
+                </div>
+            </div>
+        </ion-content>
+    </div>
+</ion-modal-view>

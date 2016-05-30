@@ -1,0 +1,28 @@
+<ion-view ng-controller="Register">
+    <ion-content class="settings">
+        <h1>Personal Details</h1>
+        <p ng-class="pClass" ng-bind-html="personalHint"></p>
+
+        <div class="list list-inset">
+            <div class="row reg-row">
+                <div class="col col-50 reg-col">
+                    <label id="firstName" class="item item-input">
+                        <input type="text" ng-model="accountDetails.firstName" placeholder="First Name">
+                    </label>
+                </div>
+                <div class="col col-50 reg-col">
+                    <label id="lastName" class="item item-input">
+                        <input type="text" ng-model="accountDetails.lastName" placeholder="Last Name">
+                    </label>
+                </div>
+            </div>
+            <label class="item item-input">
+                <input type="text" ng-model="accountDetails.contact" placeholder="Contact No (Optional)">
+            </label>
+        </div>
+        <div class="ctnBtn">
+            <button ng-click="goToCompany()" class="button button-light button-border-radius">Continue</button>
+            <a href="#/login">Sign In</a>
+        </div>
+    </ion-content>
+</ion-view>
